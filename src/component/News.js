@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import NewsItem from "./NewsItem";
 
 export class News extends Component {
-    articles =  [
+   articles =  [
 {
 "source": {
 "id": "the-verge",
@@ -1291,29 +1291,33 @@ export class News extends Component {
 "content": "Kunden der deutschen Genossenschaftsbanken können künftig in Geschäften mit dem iPhone bezahlen, ohne Apple Pay in Anspruch nehmen zu müssen. Die Volksbanken sind damit die erste Bankengruppe in Euro… [+1720 chars]"
 }
 ]
-    constructor(){
-        super();
-        this.state={
-            articles=this.articles,
 
-        }
-    }
+  constructor() {
+    super();
+    this.state = {
+      articles: this.articles,
+      loading: false,
+    };
+  }
+
   render() {
     return (
-      <div>
-        <div className="container my-3">
-          <h3>Welcome to Daily News Top Headlines</h3>
-          <div className="row">
-            <div className="col-md-4">
-              <NewsItem title="my title" description="my description" />
-            </div>
-            <div className="col-md-4">
-              <NewsItem title="my title" description="my description" />
-            </div>
-            <div className="col-md-4">
-              <NewsItem title="my title" description="my description" />
-            </div>
-          </div>
+      <div className="container my-3">
+        <h3>Welcome to Daily News Top Headlines</h3>
+
+        <div className="row my-3">
+          {this.state.articles.map((element) => {
+            return (
+              <div className="col-md-4 my-3" key={element.url}>
+                <NewsItem
+                  title={element.title.slice(0,45)}
+                  description={element.description.slice(0,88)}
+                  imagUrl={element.urlToImage}
+                  neswUrl={element.url}  // avoids empty string error
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     );
